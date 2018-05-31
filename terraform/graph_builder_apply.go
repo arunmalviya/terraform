@@ -115,12 +115,12 @@ func (b *ApplyGraphBuilder) Steps() []GraphTransformer {
 		// Add module variables
 		&ModuleVariableTransformer{Config: b.Config},
 
+		// add providers
+		TransformProviders(b.Components.ResourceProviders(), concreteProvider, b.Config),
+
 		// Must be before TransformProviders and ReferenceTransformer, since
 		// schema is required to extract references from config.
 		&AttachSchemaTransformer{Components: b.Components},
-
-		// add providers
-		TransformProviders(b.Components.ResourceProviders(), concreteProvider, b.Config),
 
 		// Remove modules no longer present in the config
 		&RemovedModuleTransformer{Config: b.Config, State: b.State},

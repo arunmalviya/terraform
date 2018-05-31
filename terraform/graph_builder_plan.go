@@ -103,8 +103,6 @@ func (b *PlanGraphBuilder) Steps() []GraphTransformer {
 
 		&MissingProvisionerTransformer{Provisioners: b.Components.ResourceProvisioners()},
 
-		&AttachSchemaTransformer{Components: b.Components},
-
 		// Add module variables
 		&ModuleVariableTransformer{
 			Config: b.Config,
